@@ -37,3 +37,17 @@ function loggedInUser()
         return false; // $db->close();
     }
 }
+
+function isAdmin()
+{
+    global $db;
+    if (isset($_SESSION['id_user'])) {
+        $id_user = $_SESSION['id_user'];
+        $query = $db->query("SELECT id_user FROM tbl_user WHERE id_user = '$id_user' AND level ='Admin'");
+        if ($query->num_rows) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
