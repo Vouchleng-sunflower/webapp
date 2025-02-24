@@ -27,7 +27,7 @@ if (
             $slug_err = 'Slug is already exits !';
         }
     }
-
+//helllo
 
 
     if (empty($name_err) && empty($slug_err)) {
