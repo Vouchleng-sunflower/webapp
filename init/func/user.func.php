@@ -1,5 +1,5 @@
 <?php
-function usernameExixts($username)
+function usernameExists($username)
 {
     global $db;
     $query = $db->query("SELECT id_user FROM tbl_user WHERE username = '$username'");

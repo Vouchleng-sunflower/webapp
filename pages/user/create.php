@@ -1,22 +1,27 @@
 <?php
-
+// Initialize error variables
 $user_label_err = $username_err = $passwd_err = $confirm_passwd_err = '';
-if (isset($_POST['user_label']) && isset($_POST['username']) && isset($_POST['passwd']) && isset($_POST['confirm_passwd'])) {
+
+// Check if form was submitted
+if (isset($_POST['user_label'], $_POST['username'], $_POST['passwd'], $_POST['confirm_passwd'])) {
     $user_label = $_POST['user_label'];
     $username = $_POST['username'];
     $passwd = $_POST['passwd'];
     $confirm_passwd = $_POST['confirm_passwd'];
 
+    // Validate inputs
     if (empty($user_label)) {
         $user_label_err = 'User Label is required';
     }
+
     if (empty($username)) {
         $username_err = 'Username is required';
-    } else{
-        if(usernameExixts($username)){
+    } else {
+        if (usernameExists($username)) {
             $username_err = 'Username already exists';
         }
     }
+
     if (empty($passwd)) {
         $passwd_err = 'Password is required';
     } else {
@@ -24,31 +29,28 @@ if (isset($_POST['user_label']) && isset($_POST['username']) && isset($_POST['pa
             $confirm_passwd_err = 'Confirm Password is required';
         } else {
             if ($passwd !== $confirm_passwd) {
-                $confirm_passwd_err = 'Password not match';
+                $confirm_passwd_err = 'Passwords do not match';
             }
         }
     }
-}
-if (empty($user_label_err) && empty($username_err) && empty($passwd_err) && empty($confirm_passwd_err)) {
-    if (createUser($user_label, $username, $passwd)) {
-        echo '<div class="alert alert-success" role="alert">
-            User Created Successfully. <a href="./?page=user/home">User page</a>
-            </div>';
-        $user_label_err = $username_err = $passwd_err = $confirm_passwd_err = '';
-        unset($_POST['user_label']);
-        unset($_POST['username']);
-        unset($_POST['passwd']);
-        unset($_POST['confirm_passwd']);
-    } else {
-        echo '<div class="alert alert-danger" role="alert">
-        User Added Failed
-        </div>';
+
+    // If there are no errors, proceed to create the user
+    if (empty($user_label_err) && empty($username_err) && empty($passwd_err) && empty($confirm_passwd_err)) {
+        if (createUser($user_label, $username, $passwd)) {
+            echo '<div class="alert alert-success" role="alert">
+                    User created successfully. <a href="./?page=user/home">Go to User Page</a>
+                  </div>';
+            // Clear the form after successful user creation
+            unset($_POST['user_label'], $_POST['username'], $_POST['passwd'], $_POST['confirm_passwd']);
+        } else {
+            echo '<div class="alert alert-danger" role="alert">
+                    User creation failed.
+                  </div>';
+        }
     }
 }
-
-
-
 ?>
+
 <form action="./?page=user/create" method="post" class="w-50 mx-auto">
     <h1>Create User</h1>
     <div class="mb-3">
@@ -79,7 +81,7 @@ if (empty($user_label_err) && empty($username_err) && empty($passwd_err) && empt
             </div>
         </div>
         <div class="d-flex justify-content-between">
-            <a role="button" class="btn btn-secondary">Cancel</a>
+            <a role="button" href="./?page=user/home" class="btn btn-secondary">Cancel</a>
             <button type="submit" class="btn btn-success">Create</button>
         </div>
 </form>

@@ -5,7 +5,7 @@ $username_err = $passwd_err = '';
 if (isset($_POST['username']) && isset($_POST['passwd'])) {
   $username = $_POST['username'];
   $passwd = $_POST['passwd'];
-  if (usernameExixts($username)) {
+  if (usernameExists($username)) {
     if (logUserIn($username, $passwd)) {
       header('Location: ./?page=dashboard');
     } else {

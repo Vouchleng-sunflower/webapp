@@ -17,6 +17,10 @@
           <ul class="dropdown-menu">
             
               <li><a class="dropdown-item" href="./?page=user/home">User Accouts</a></li>
+              <li><a class="dropdown-item" href="./?page=category/home">Category</a></li>
+              <li><a class="dropdown-item" href="./?page=product/home">Product</a></li>
+
+
           </ul>
         </li>
           <?php } ?>
@@ -27,6 +31,7 @@
           <ul class="dropdown-menu">
             <?php if (!loggedInUser()) { ?>
               <li><a class="dropdown-item" href="./?page=login">Login</a></li>
+              
 
               <li>
                 <hr class="dropdown-divider">

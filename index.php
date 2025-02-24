@@ -6,16 +6,27 @@ include('includes/header.inc.php');
 include('includes/navbar.inc.php');
 if (isset($_GET['page'])) {
     $page = $_GET['page']; // about
+    $admin_pages = ['user/home',
+    'user/create',
+    'user/update',
+    'user/delete',
+    'category/home',
+    'category/create',
+    'category/update',
+    'category/delete',
+    'product/home',
+    'product/create',
+    'product/update',
+    'product/delete'
+];
+$user_page = [];
 
     $before_logIn_pages = ['login', 'register'];
     $after_logIn_pages = [
         'dashboard',
-        'user/home',
-        'user/create'
-
+        ...$admin_pages // flat copy
     ];
-    $admin_pages = ['user/home'];
-    $user_page = [];
+
     if (
         $page === 'logout'  ||
         (in_array($page, $before_logIn_pages) && !loggedInUser()) ||

@@ -10,16 +10,22 @@
                     <th>ID</th>
                     <th>User_Label</th>
                     <th>Level</th>
+                    <th>Action</th>
                 </tr>
                 <?php
                 $manage_users = getUsers();
                 if ($manage_users !== null) {
                     while ($row = $manage_users->fetch_object()) {
-                        echo '    <tr>
-                                <td>' . $row->id_user . '</td>
-                                <td>' . $row->user_label . '</td>
-                                <td>' . $row->level . '</td>
-                                </tr>';
+                     ?>        <tr>
+                                <td><?php echo $row->id_user?></td>
+                                <td><?php echo $row->user_label  ?></td>
+                                <td><?php echo  $row->level  ?></td>
+                                <td>
+                                    <a class="btn btn-primary" href="./?page=user/update&id=<?php echo $row->id_user?> ">Update</a>
+                                    <a  class ="btn btn-danger" href="./?page=user/delete&id=<?php echo $row->id_user?> ">Delete</a>
+                                </td>
+                    </tr>
+                <?php                
                     }
                 }
 
